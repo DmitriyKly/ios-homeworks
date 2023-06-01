@@ -24,6 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationProfileController = UINavigationController(rootViewController: profileViewController)
         navigationProfileController.tabBarItem.title = "Profile"
         navigationProfileController.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
+        //
         
         
         let feedViewController = FeedViewController()
