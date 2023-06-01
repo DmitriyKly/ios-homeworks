@@ -13,6 +13,6 @@ class PostViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         title = "Post"
-        //
+
     }
 }

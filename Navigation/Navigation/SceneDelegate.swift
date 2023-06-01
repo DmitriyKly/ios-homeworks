@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationProfileController = UINavigationController(rootViewController: profileViewController)
         navigationProfileController.tabBarItem.title = "Profile"
         navigationProfileController.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
-        //
+
         
         
         let feedViewController = FeedViewController()
@@ -40,10 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = tabViewController
         self.window = window
         window.makeKeyAndVisible()
-///
-        //////
-        ///
-        ///
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
