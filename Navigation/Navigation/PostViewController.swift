@@ -26,8 +26,6 @@ class PostViewController: UIViewController {
     @objc func infoView() {
         
         let infoViewController = InfoViewController()
-        
-        // navigationController?.pushViewController(infoViewController, animated: true)
         present(infoViewController, animated: true, completion: nil)
     }
 }
