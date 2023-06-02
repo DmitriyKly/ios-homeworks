@@ -8,11 +8,28 @@
 import UIKit
 
 class PostViewController: UIViewController {
-
+    
+    var titlePost: String = "My Post"
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
-        title = "Post"
-
+        self.navigationItem.title = titlePost
+        
+        
+        let infoBar = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(infoView))
+        navigationItem.rightBarButtonItem = infoBar
+        
+    }
+    
+    @objc func infoView() {
+        
+        let infoViewController = InfoViewController()
+        
+        // navigationController?.pushViewController(infoViewController, animated: true)
+        present(infoViewController, animated: true, completion: nil)
     }
 }
+
+

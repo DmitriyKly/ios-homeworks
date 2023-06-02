@@ -8,11 +8,14 @@
 import UIKit
 
 class FeedViewController: UIViewController {
-
+    
+    var post = Post(title: "First post")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         title = "Feed"
+   
     }
 
     override func viewDidLayoutSubviews() {
@@ -30,10 +33,7 @@ class FeedViewController: UIViewController {
     
     @objc func showDetails() {
         let postViewController = PostViewController()
-        
         navigationController?.pushViewController(postViewController, animated: true)
-        
-        //present(postViewController, animated: true)
+        postViewController.titlePost = post.title
     }
-    
 }
