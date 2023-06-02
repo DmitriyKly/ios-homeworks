@@ -13,10 +13,34 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        let window = UIWindow(windowScene: windowScene)
+        
+        let profileViewController = ProfileViewController()
+        
+        let navigationProfileController = UINavigationController(rootViewController: profileViewController)
+        navigationProfileController.tabBarItem.title = "Profile"
+        navigationProfileController.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
+
+        
+        
+        let feedViewController = FeedViewController()
+        let navigationFeedController = UINavigationController(rootViewController: feedViewController)
+        navigationFeedController.tabBarItem.title = "Feed"
+        navigationFeedController.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 1)
+        
+        let tabViewController = UITabBarController()
+        tabViewController.viewControllers = [navigationProfileController, navigationFeedController]
+        tabViewController.tabBar.backgroundColor = UIColor.gray
+        tabViewController.tabBar.tintColor = UIColor.black
+        
+        window.rootViewController = tabViewController
+        self.window = window
+        window.makeKeyAndVisible()
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
