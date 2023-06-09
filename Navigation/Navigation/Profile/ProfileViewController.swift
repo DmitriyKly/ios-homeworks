@@ -17,11 +17,11 @@ class ProfileViewController: UIViewController {
         title = "Profile"
         view.addSubview(profileHeaderView)
     }
-    
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         profileHeaderView.frame = view.bounds.inset(by: insets)
-        profileHeaderView.backgroundColor = UIColor.lightGray
+        profileHeaderView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
     }
     
 }

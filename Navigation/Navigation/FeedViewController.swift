@@ -33,7 +33,9 @@ class FeedViewController: UIViewController {
     
     @objc func showDetails() {
         let postViewController = PostViewController()
-        navigationController?.pushViewController(postViewController, animated: true)
-        postViewController.titlePost = post.title
-    }
+         navigationController?.pushViewController(postViewController, animated: true)
+         postViewController.titlePost = post.title
+         }
+         
+    
 }

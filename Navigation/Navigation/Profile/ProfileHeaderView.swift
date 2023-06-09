@@ -12,39 +12,25 @@ class ProfileHeaderView: UIView {
     let avatar = UIView()
     let name = UILabel()
     let imageViewSnoopDog = UIImageView()
-    let status = UITextField()
-    let showStatus = UIButton(type: .system)
+    let status: UITextField
+    let showStatus: UIButton
     let screenWidth = UIScreen.main.bounds.width
     
     
     override init(frame: CGRect) {
         profileHeader = UIView()
+        status = UITextField()
+        showStatus = UIButton(type: .system)
         super.init(frame: frame)
         addSubview(profileHeader)
+        addSubview(status)
+        addSubview(showStatus)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    /*
-    override init(frame: CGRect) {
-        avatar = UIView()
-        name = UILabel()
-        status = UITextField()
-        showStatus = UIButton()
-        super.init(frame: frame)
-        addSubview(avatar)
-        addSubview(name)
-        addSubview(status)
-        addSubview(showStatus)
-    }
-    
-    required init(coder: NSCoder) {
-        fatalError("Error")
-    }
-*/
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -62,7 +48,7 @@ class ProfileHeaderView: UIView {
         imageViewSnoopDog.layer.cornerRadius = avatar.layer.cornerRadius
         
         avatar.addSubview(imageViewSnoopDog)
-    
+        
         name.text = "Snoop Dog"
         name.font = UIFont.boldSystemFont(ofSize: 18.0)
         name.textColor = UIColor.black
@@ -75,8 +61,6 @@ class ProfileHeaderView: UIView {
         status.textColor = UIColor.gray
         status.font = UIFont.systemFont(ofSize: 14.0, weight: .regular)
         
-        profileHeader.addSubview(status)
-        
         showStatus.translatesAutoresizingMaskIntoConstraints = true
         showStatus.frame = CGRect(x: 16, y: avatar.frame.maxY + 16.0 , width: screenWidth - 32 , height: 50)
         showStatus.layer.cornerRadius = 16
@@ -88,11 +72,12 @@ class ProfileHeaderView: UIView {
         showStatus.layer.shadowRadius = 4
         showStatus.layer.shadowColor = UIColor.black.cgColor
         showStatus.layer.shadowOpacity = 0.7
-
         
-        
-        profileHeader.addSubview(showStatus)
-
+        showStatus.addTarget(self, action: #selector(printStatus), for: .touchUpInside)
     }
     
+    @objc func printStatus() {
+        let printText = "\(status.text ?? "Nil")"
+     print(printText)
+     }
 }
