@@ -16,6 +16,7 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = UIColor.white
         title = "Profile"
         view.addSubview(profileHeaderView)
+        profileHeaderView.layout()
     }
 
     override func viewWillLayoutSubviews() {
@@ -23,6 +24,8 @@ class ProfileViewController: UIViewController {
         profileHeaderView.frame = view.bounds.inset(by: insets)
         profileHeaderView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
     }
+    
+    
     
 }
 
