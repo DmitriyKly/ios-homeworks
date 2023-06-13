@@ -15,6 +15,7 @@ class ProfileHeaderView: UIView {
         avatarImageView.backgroundColor = .white
         avatarImageView.layer.borderColor = UIColor.white.cgColor
         avatarImageView.layer.borderWidth = 3
+        
         return avatarImageView
     }()
     
@@ -24,6 +25,7 @@ class ProfileHeaderView: UIView {
         fullNameLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
         fullNameLabel.textColor = UIColor.black
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         return fullNameLabel
     }()
     
@@ -34,6 +36,7 @@ class ProfileHeaderView: UIView {
         imageViewSnoopDog.clipsToBounds = true
         imageViewSnoopDog.translatesAutoresizingMaskIntoConstraints = false
         imageViewSnoopDog.layer.cornerRadius = avatarImageView.layer.cornerRadius
+        
         return imageViewSnoopDog
     }()
     
@@ -43,6 +46,7 @@ class ProfileHeaderView: UIView {
         statusLabel.textColor = UIColor.gray
         statusLabel.font = UIFont.systemFont(ofSize: 14.0, weight: .regular)
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         return statusLabel
     }()
     
@@ -90,8 +94,8 @@ class ProfileHeaderView: UIView {
 
         NSLayoutConstraint.activate([
             
-            avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
+            avatarImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
             avatarImageView.widthAnchor.constraint(equalToConstant: 120),
             avatarImageView.heightAnchor.constraint(equalToConstant: 120),
             
@@ -112,7 +116,9 @@ class ProfileHeaderView: UIView {
             setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
             setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            setStatusButton.heightAnchor.constraint(equalToConstant: 50)
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
+            setStatusButton.widthAnchor.constraint(equalTo: widthAnchor)
+            //setStatusButton.widthAnchor.constraint(equalToConstant: 550)
 
         ])
         
