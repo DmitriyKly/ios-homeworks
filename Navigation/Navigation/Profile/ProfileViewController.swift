@@ -8,32 +8,16 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-
-    //let profileHeaderView = ProfileHeaderView()
-    let insets = UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0)
     
-    
-    var profileHeaderView: ProfileHeaderView = {
-       let profileHeaderView = ProfileHeaderView()
-       profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
-       profileHeaderView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
-       return profileHeaderView
-    }()
+    let profileHeaderView = ProfileHeaderView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         title = "Profile"
         view.addSubview(profileHeaderView)
-    }
-
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        profileHeaderView.frame = view.bounds.inset(by: insets)
-        //
-    }
-    
-    func setupContraints() {
+        profileHeaderView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             profileHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -41,8 +25,16 @@ class ProfileViewController: UIViewController {
             profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
         ])
         
+        let newButton = UIButton(type: .system)
+        newButton.translatesAutoresizingMaskIntoConstraints = false
+        newButton.setTitle("New Button", for: .normal)
+        newButton.setTitleColor(.black, for: .normal)
+        newButton.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+        view.addSubview(newButton)
+        NSLayoutConstraint.activate([
+            newButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
 }
-
-
-

@@ -8,6 +8,7 @@
 import UIKit
 
 class ProfileHeaderView: UIView {
+    
     lazy var avatarImageView: UIView = {
         let avatarImageView = UIView()
         avatarImageView.layer.cornerRadius = 60
@@ -36,6 +37,8 @@ class ProfileHeaderView: UIView {
         imageViewSnoopDog.clipsToBounds = true
         imageViewSnoopDog.translatesAutoresizingMaskIntoConstraints = false
         imageViewSnoopDog.layer.cornerRadius = avatarImageView.layer.cornerRadius
+        imageViewSnoopDog.layer.borderColor = avatarImageView.layer.borderColor
+        imageViewSnoopDog.layer.borderWidth = avatarImageView.layer.borderWidth
         
         return imageViewSnoopDog
     }()
@@ -61,7 +64,6 @@ class ProfileHeaderView: UIView {
         setStatusButton.layer.shadowColor = UIColor.black.cgColor
         setStatusButton.layer.shadowOpacity = 0.7
         setStatusButton.translatesAutoresizingMaskIntoConstraints = false
-        
         return setStatusButton
     }()
     
@@ -90,14 +92,11 @@ class ProfileHeaderView: UIView {
     }
     
     func setupContraints() {
-    
-
+        
         NSLayoutConstraint.activate([
             
             avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             avatarImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            avatarImageView.widthAnchor.constraint(equalToConstant: 120),
-            avatarImageView.heightAnchor.constraint(equalToConstant: 120),
             
             imageViewSnoopDog.topAnchor.constraint(equalTo: avatarImageView.topAnchor,constant: 0),
             imageViewSnoopDog.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor,constant: 0),
@@ -108,7 +107,7 @@ class ProfileHeaderView: UIView {
             
             fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
             fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 27),
-            fullNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            fullNameLabel.widthAnchor.constraint(equalTo: widthAnchor),
             
             statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor,constant: 27),
             statusLabel.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor,constant: -34),
@@ -116,17 +115,13 @@ class ProfileHeaderView: UIView {
             setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
             setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            setStatusButton.widthAnchor.constraint(equalTo: widthAnchor)
-            //setStatusButton.widthAnchor.constraint(equalToConstant: 550)
-
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50)
+            
         ])
-        
     }
     
     @objc func printStatus() {
         let printText = "\(statusLabel.text ?? "Nil")"
         print(printText)
     }
-    
 }
