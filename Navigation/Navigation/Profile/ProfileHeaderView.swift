@@ -43,14 +43,26 @@ class ProfileHeaderView: UIView {
         return imageViewSnoopDog
     }()
     
-    lazy var statusLabel: UITextField = {
-        let statusLabel = UITextField()
+    lazy var statusLabel: UILabel = {
+        let statusLabel = UILabel()
         statusLabel.text = "Write Your Status"
         statusLabel.textColor = UIColor.gray
         statusLabel.font = UIFont.systemFont(ofSize: 14.0, weight: .regular)
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return statusLabel
+    }()
+     
+    lazy var statusTextField: UITextField = {
+        let statusTextField = UITextField()
+        statusTextField.backgroundColor = UIColor.white
+        statusTextField.layer.cornerRadius = 12
+        statusTextField.textColor = UIColor.black
+        statusTextField.layer.borderWidth = 1
+        statusTextField.layer.borderColor = UIColor.black.cgColor
+        statusTextField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        statusTextField.translatesAutoresizingMaskIntoConstraints = false
+        return statusTextField
     }()
     
     lazy var setStatusButton: UIButton = {
@@ -85,6 +97,7 @@ class ProfileHeaderView: UIView {
         self.addSubview(statusLabel)
         self.addSubview(setStatusButton)
         self.addSubview(imageViewSnoopDog)
+        self.addSubview(statusTextField)
     }
     
     func addButtons() {
@@ -110,7 +123,12 @@ class ProfileHeaderView: UIView {
             fullNameLabel.widthAnchor.constraint(equalTo: widthAnchor),
             
             statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor,constant: 27),
-            statusLabel.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor,constant: -34),
+            statusLabel.bottomAnchor.constraint(equalTo: statusTextField.topAnchor, constant: -16),
+            
+            statusTextField.leadingAnchor.constraint(equalTo: statusLabel.leadingAnchor),
+            statusTextField.trailingAnchor.constraint(equalTo: setStatusButton.trailingAnchor),
+            statusTextField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -16),
+            statusTextField.heightAnchor.constraint(equalToConstant: 40),
             
             setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
             setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
