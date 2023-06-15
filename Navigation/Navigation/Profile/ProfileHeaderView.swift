@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
-    lazy var avatarImageView: UIView = {
+  lazy var avatarImageView: UIView = {
         let avatarImageView = UIView()
         avatarImageView.layer.cornerRadius = 60
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +30,7 @@ class ProfileHeaderView: UIView {
         return fullNameLabel
     }()
     
-    lazy var imageViewSnoopDog: UIImageView = {
+   lazy var imageViewSnoopDog: UIImageView = {
         let imageViewSnoopDog = UIImageView()
         imageViewSnoopDog.image = UIImage(named: "Snoop dog")
         imageViewSnoopDog.contentMode = .scaleAspectFill
@@ -43,7 +43,7 @@ class ProfileHeaderView: UIView {
         return imageViewSnoopDog
     }()
     
-    lazy var statusLabel: UILabel = {
+   lazy var statusLabel: UILabel = {
         let statusLabel = UILabel()
         statusLabel.text = "Write Your Status"
         statusLabel.textColor = UIColor.gray
@@ -53,7 +53,7 @@ class ProfileHeaderView: UIView {
         return statusLabel
     }()
     
-    lazy var statusTextField: UITextField = {
+  lazy var statusTextField: UITextField = {
         let statusTextField = UITextField()
         statusTextField.backgroundColor = UIColor.white
         statusTextField.layer.cornerRadius = 12
@@ -65,7 +65,7 @@ class ProfileHeaderView: UIView {
         return statusTextField
     }()
     
-    lazy var setStatusButton: UIButton = {
+  lazy var setStatusButton: UIButton = {
         let setStatusButton = UIButton(type: .system)
         setStatusButton.layer.cornerRadius = 8
         setStatusButton.setTitle("Show status", for: .normal)
@@ -100,11 +100,11 @@ class ProfileHeaderView: UIView {
         self.addSubview(statusTextField)
     }
     
-    func addButtons() {
+     func addButtons() {
         setStatusButton.addTarget(self, action: #selector(printStatus), for: .touchUpInside)
     }
     
-    func setupContraints() {
+     func setupContraints() {
         
         NSLayoutConstraint.activate([
             
@@ -138,7 +138,7 @@ class ProfileHeaderView: UIView {
         ])
     }
     
-    @objc func printStatus() {
+     @objc func printStatus() {
         statusLabel.text = statusTextField.text
         statusTextField.text = ""
     }
