@@ -52,7 +52,7 @@ class ProfileHeaderView: UIView {
         
         return statusLabel
     }()
-     
+    
     lazy var statusTextField: UITextField = {
         let statusTextField = UITextField()
         statusTextField.backgroundColor = UIColor.white
@@ -139,7 +139,7 @@ class ProfileHeaderView: UIView {
     }
     
     @objc func printStatus() {
-        let printText = "\(statusLabel.text ?? "Nil")"
-        print(printText)
+        statusLabel.text = statusTextField.text
+        statusTextField.text = ""
     }
 }
