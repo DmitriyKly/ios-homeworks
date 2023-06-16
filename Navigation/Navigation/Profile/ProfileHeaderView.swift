@@ -8,90 +8,138 @@
 import UIKit
 
 class ProfileHeaderView: UIView {
-    let profileHeader: UIView
     
-    lazy var avatar: UIView = {
-    let avatar = UIView()
-    avatar.frame = CGRect(x: 16.0, y: 16.0, width: 150, height: 150)
-    avatar.layer.cornerRadius = avatar.frame.height/2
-    avatar.layer.borderColor = UIColor.white.cgColor
-    avatar.layer.borderWidth = 3
-        return avatar
-    }()
+  lazy var avatarImageView: UIView = {
+        let avatarImageView = UIView()
+        avatarImageView.layer.cornerRadius = 60
+        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
+        avatarImageView.backgroundColor = .white
+        avatarImageView.layer.borderColor = UIColor.white.cgColor
+        avatarImageView.layer.borderWidth = 3
         
-    lazy var name: UILabel = {
-        let name = UILabel()
-        name.text = "Snoop Dog"
-        name.font = UIFont.boldSystemFont(ofSize: 18.0)
-        name.textColor = UIColor.black
-        name.frame = CGRect(x: avatar.frame.maxX + 15.0 , y: 27.0, width: 100 , height: 20)
-        return name
+        return avatarImageView
     }()
     
-    lazy var imageViewSnoopDog: UIImageView = {
-        imageViewSnoopDog = UIImageView()
+    lazy var fullNameLabel: UILabel = {
+        let fullNameLabel = UILabel()
+        fullNameLabel.text = "Snoop Dog"
+        fullNameLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
+        fullNameLabel.textColor = UIColor.black
+        fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return fullNameLabel
+    }()
+    
+   lazy var imageViewSnoopDog: UIImageView = {
+        let imageViewSnoopDog = UIImageView()
         imageViewSnoopDog.image = UIImage(named: "Snoop dog")
-        imageViewSnoopDog.frame = CGRect(x: 0, y: 0, width: 150, height: 150)
-        imageViewSnoopDog.contentMode = .scaleAspectFit
+        imageViewSnoopDog.contentMode = .scaleAspectFill
         imageViewSnoopDog.clipsToBounds = true
-        imageViewSnoopDog.layer.cornerRadius = avatar.layer.cornerRadius
-       
+        imageViewSnoopDog.translatesAutoresizingMaskIntoConstraints = false
+        imageViewSnoopDog.layer.cornerRadius = avatarImageView.layer.cornerRadius
+        imageViewSnoopDog.layer.borderColor = avatarImageView.layer.borderColor
+        imageViewSnoopDog.layer.borderWidth = avatarImageView.layer.borderWidth
+        
         return imageViewSnoopDog
     }()
     
-    
-    lazy var status: UITextField = {
-    let status = UITextField()
-        status.text = "Write Your Status"
-        status.textColor = UIColor.gray
-        status.font = UIFont.systemFont(ofSize: 14.0, weight: .regular)
-        status.frame = CGRect(x: avatar.frame.maxX + 15.0, y: showStatus.frame.minY - 68.0, width: 150, height: 20)
-        return status
-    }()
-    
-    lazy var showStatus: UIButton = {
-        let showStatus = UIButton(type: .system)
-        showStatus.translatesAutoresizingMaskIntoConstraints = true
-        showStatus.layer.cornerRadius = 8
-        showStatus.setTitle("Show status", for: .normal)
-        showStatus.tintColor = .white
-        showStatus.backgroundColor = .systemBlue
-        showStatus.layer.shadowOffset = CGSize(width: 4, height: 4)
-        showStatus.layer.shadowRadius = 4
-        showStatus.layer.shadowColor = UIColor.black.cgColor
-        showStatus.layer.shadowOpacity = 0.7
-        showStatus.frame = CGRect(x: 16, y: avatar.frame.maxY + 16.0 , width: screenWidth - 32 , height: 50)
+   lazy var statusLabel: UILabel = {
+        let statusLabel = UILabel()
+        statusLabel.text = "Write Your Status"
+        statusLabel.textColor = UIColor.gray
+        statusLabel.font = UIFont.systemFont(ofSize: 14.0, weight: .regular)
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        return showStatus
+        return statusLabel
     }()
     
-    let screenWidth = UIScreen.main.bounds.width
+  lazy var statusTextField: UITextField = {
+        let statusTextField = UITextField()
+        statusTextField.backgroundColor = UIColor.white
+        statusTextField.layer.cornerRadius = 12
+        statusTextField.textColor = UIColor.black
+        statusTextField.layer.borderWidth = 1
+        statusTextField.layer.borderColor = UIColor.black.cgColor
+        statusTextField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        statusTextField.translatesAutoresizingMaskIntoConstraints = false
+        return statusTextField
+    }()
     
-    
-    override init(frame: CGRect) {
-        profileHeader = UIView()
-        super.init(frame: frame)
-        addSubview(profileHeader)
-        addSubview(status)
-        addSubview(showStatus)
-        addSubview(name)
-        addSubview(avatar)
-    }
+  lazy var setStatusButton: UIButton = {
+        let setStatusButton = UIButton(type: .system)
+        setStatusButton.layer.cornerRadius = 8
+        setStatusButton.setTitle("Show status", for: .normal)
+        setStatusButton.tintColor = .white
+        setStatusButton.backgroundColor = .systemBlue
+        setStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
+        setStatusButton.layer.shadowRadius = 4
+        setStatusButton.layer.shadowColor = UIColor.black.cgColor
+        setStatusButton.layer.shadowOpacity = 0.7
+        setStatusButton.translatesAutoresizingMaskIntoConstraints = false
+        return setStatusButton
+    }()
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        avatar.addSubview(imageViewSnoopDog)
-        showStatus.addTarget(self, action: #selector(printStatus), for: .touchUpInside)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+        setupContraints()
+        addButtons()
     }
     
+    func setupView() {
+        
+        self.addSubview(avatarImageView)
+        self.addSubview(fullNameLabel)
+        self.addSubview(statusLabel)
+        self.addSubview(setStatusButton)
+        self.addSubview(imageViewSnoopDog)
+        self.addSubview(statusTextField)
+    }
     
-    @objc func printStatus() {
-        let printText = "\(status.text ?? "Nil")"
-     print(printText)
-     }
+     func addButtons() {
+        setStatusButton.addTarget(self, action: #selector(printStatus), for: .touchUpInside)
+    }
+    
+     func setupContraints() {
+        
+        NSLayoutConstraint.activate([
+            
+            avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
+            avatarImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            
+            imageViewSnoopDog.topAnchor.constraint(equalTo: avatarImageView.topAnchor,constant: 0),
+            imageViewSnoopDog.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor,constant: 0),
+            imageViewSnoopDog.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 0),
+            imageViewSnoopDog.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 0),
+            imageViewSnoopDog.widthAnchor.constraint(equalToConstant: 120),
+            imageViewSnoopDog.heightAnchor.constraint(equalToConstant: 120),
+            
+            fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
+            fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 27),
+            fullNameLabel.widthAnchor.constraint(equalTo: widthAnchor),
+            
+            statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor,constant: 27),
+            statusLabel.bottomAnchor.constraint(equalTo: statusTextField.topAnchor, constant: -16),
+            
+            statusTextField.leadingAnchor.constraint(equalTo: statusLabel.leadingAnchor),
+            statusTextField.trailingAnchor.constraint(equalTo: setStatusButton.trailingAnchor),
+            statusTextField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -16),
+            statusTextField.heightAnchor.constraint(equalToConstant: 40),
+            
+            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
+            setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50)
+            
+        ])
+    }
+    
+     @objc func printStatus() {
+        statusLabel.text = statusTextField.text
+        statusTextField.text = ""
+    }
 }

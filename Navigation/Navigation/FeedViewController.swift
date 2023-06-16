@@ -15,9 +15,8 @@ class FeedViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         title = "Feed"
-   
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -33,9 +32,8 @@ class FeedViewController: UIViewController {
     
     @objc func showDetails() {
         let postViewController = PostViewController()
-         navigationController?.pushViewController(postViewController, animated: true)
-         postViewController.titlePost = post.title
-         }
-         
+        navigationController?.pushViewController(postViewController, animated: true)
+        postViewController.titlePost = post.title
+    }
     
 }
