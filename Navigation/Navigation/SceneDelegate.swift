@@ -19,24 +19,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
+        let loginViewController = LoginViewController()
+        loginViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 1)
+       
+        let navigationLoginViewController = UINavigationController(rootViewController: loginViewController)
+        
         let profileViewController = ProfileViewController()
         
         let navigationProfileController = UINavigationController(rootViewController: profileViewController)
         navigationProfileController.tabBarItem.title = "Profile"
-        navigationProfileController.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
+        navigationProfileController.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 1)
 
-        
-        
         let feedViewController = FeedViewController()
+        
         let navigationFeedController = UINavigationController(rootViewController: feedViewController)
         navigationFeedController.tabBarItem.title = "Feed"
-        navigationFeedController.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 1)
+        navigationFeedController.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 0)
         
         let tabViewController = UITabBarController()
-        tabViewController.viewControllers = [navigationProfileController, navigationFeedController]
+        tabViewController.viewControllers = [navigationFeedController, navigationLoginViewController]
         tabViewController.tabBar.backgroundColor = UIColor.white
         tabViewController.tabBar.tintColor = UIColor.black
-     
         
         window.rootViewController = tabViewController
         self.window = window

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C43C5882A41905D007435F3 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C43C5872A41905D007435F3 /* LogInViewController.swift */; };
 		2C5C43F02A29DC1D0039E14E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C43EF2A29DC1D0039E14E /* InfoViewController.swift */; };
 		2C5CE59B2A28A94B007DBBA4 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5CE59A2A28A94B007DBBA4 /* FeedViewController.swift */; };
 		2C5CE59D2A28A968007DBBA4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5CE59C2A28A968007DBBA4 /* ProfileViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C43C5872A41905D007435F3 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		2C5C43EF2A29DC1D0039E14E /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		2C5CE59A2A28A94B007DBBA4 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		2C5CE59C2A28A968007DBBA4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -50,6 +52,7 @@
 			children = (
 				2C5E55692A31C37E00CC2A34 /* ProfileHeaderView.swift */,
 				2C5CE59C2A28A968007DBBA4 /* ProfileViewController.swift */,
+				2C43C5872A41905D007435F3 /* LogInViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 			files = (
 				2C5CE59F2A28A9BC007DBBA4 /* PostViewController.swift in Sources */,
 				2CB884722A1DFE8000EA4BA9 /* AppDelegate.swift in Sources */,
+				2C43C5882A41905D007435F3 /* LogInViewController.swift in Sources */,
 				2C5CE59D2A28A968007DBBA4 /* ProfileViewController.swift in Sources */,
 				2C5CE59B2A28A94B007DBBA4 /* FeedViewController.swift in Sources */,
 				2C5CE5A12A28A9DF007DBBA4 /* Post.swift in Sources */,
