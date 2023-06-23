@@ -57,6 +57,7 @@ class LoginViewController: UIViewController{
         mailOfPhoneField.autocorrectionType = .no
         mailOfPhoneField.placeholder = "Email of phone"
         mailOfPhoneField.indent(size: 16)
+        mailOfPhoneField.delegate = self
         
         return mailOfPhoneField
       }()
@@ -71,6 +72,7 @@ class LoginViewController: UIViewController{
         passwordField.placeholder = "Password"
         passwordField.indent(size: 16)
         passwordField.isSecureTextEntry = true
+        passwordField.delegate = self
                 
         return passwordField
       }()
@@ -110,7 +112,7 @@ class LoginViewController: UIViewController{
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        notificationCenter.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+         notificationCenter.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         notificationCenter.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
@@ -187,9 +189,7 @@ class LoginViewController: UIViewController{
 
 extension LoginViewController: UITextFieldDelegate {
     
-    func textFieldShouldReturn(
-        _ textField: UITextField
-    ) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField ) -> Bool {
         textField.resignFirstResponder()
         
         return true
