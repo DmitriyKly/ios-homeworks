@@ -79,6 +79,16 @@ class ProfileHeaderView: UIView {
         return setStatusButton
     }()
     
+    var newButton: UIButton = {
+        let newButton = UIButton(type: .system)
+        newButton.setTitle("New Button", for: .normal)
+        newButton.setTitleColor(.black, for: .normal)
+        newButton.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+        newButton.translatesAutoresizingMaskIntoConstraints = false
+        return newButton
+    }()
+    
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -98,6 +108,7 @@ class ProfileHeaderView: UIView {
         self.addSubview(setStatusButton)
         self.addSubview(imageViewSnoopDog)
         self.addSubview(statusTextField)
+        self.addSubview(newButton)
     }
     
      func addButtons() {
@@ -133,7 +144,11 @@ class ProfileHeaderView: UIView {
             setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
             setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            setStatusButton.heightAnchor.constraint(equalToConstant: 50)
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            newButton.leadingAnchor.constraint(equalTo: leadingAnchor),
+            newButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+            newButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
             
         ])
     }

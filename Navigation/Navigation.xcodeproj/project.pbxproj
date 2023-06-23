@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C09A2AF2A462998005BCEA4 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C09A2AE2A462998005BCEA4 /* PostTableViewCell.swift */; };
 		2C43C5882A41905D007435F3 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C43C5872A41905D007435F3 /* LogInViewController.swift */; };
 		2C5C43F02A29DC1D0039E14E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C43EF2A29DC1D0039E14E /* InfoViewController.swift */; };
 		2C5CE59B2A28A94B007DBBA4 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5CE59A2A28A94B007DBBA4 /* FeedViewController.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C09A2AE2A462998005BCEA4 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		2C43C5872A41905D007435F3 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		2C5C43EF2A29DC1D0039E14E /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		2C5CE59A2A28A94B007DBBA4 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
@@ -52,7 +54,7 @@
 			children = (
 				2C5E55692A31C37E00CC2A34 /* ProfileHeaderView.swift */,
 				2C5CE59C2A28A968007DBBA4 /* ProfileViewController.swift */,
-				2C43C5872A41905D007435F3 /* LogInViewController.swift */,
+				2C09A2AE2A462998005BCEA4 /* PostTableViewCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -79,6 +81,7 @@
 				2C5E55662A31B62800CC2A34 /* Profile */,
 				2CB884712A1DFE8000EA4BA9 /* AppDelegate.swift */,
 				2CB884732A1DFE8000EA4BA9 /* SceneDelegate.swift */,
+				2C43C5872A41905D007435F3 /* LogInViewController.swift */,
 				2C5C43EF2A29DC1D0039E14E /* InfoViewController.swift */,
 				2C5CE59A2A28A94B007DBBA4 /* FeedViewController.swift */,
 				2C5CE59E2A28A9BC007DBBA4 /* PostViewController.swift */,
@@ -167,6 +170,7 @@
 				2C5CE59B2A28A94B007DBBA4 /* FeedViewController.swift in Sources */,
 				2C5CE5A12A28A9DF007DBBA4 /* Post.swift in Sources */,
 				2C5C43F02A29DC1D0039E14E /* InfoViewController.swift in Sources */,
+				2C09A2AF2A462998005BCEA4 /* PostTableViewCell.swift in Sources */,
 				2CB884742A1DFE8000EA4BA9 /* SceneDelegate.swift in Sources */,
 				2C5E556A2A31C37E00CC2A34 /* ProfileHeaderView.swift in Sources */,
 			);
