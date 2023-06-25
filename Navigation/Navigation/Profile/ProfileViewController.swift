@@ -7,51 +7,87 @@
 
 import UIKit
 
+
 class ProfileViewController: UIViewController {
     
-    var profileHeaderView: ProfileHeaderView = {
-        let profileHeaderView = ProfileHeaderView()
-        profileHeaderView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
-        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return profileHeaderView
-    }()
+    private let postFeed = PostView.makePost()
     
-    var newButton: UIButton = {
-        let newButton = UIButton(type: .system)
-        newButton.setTitle("New Button", for: .normal)
-        newButton.setTitleColor(.black, for: .normal)
-        newButton.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
-        newButton.translatesAutoresizingMaskIntoConstraints = false
-        return newButton
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+        tableView.dataSource = self
+        tableView.delegate = self
+        return tableView
     }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.white
-        title = "Profile"
-        setupView()
-        setupContraintsProfile()
+        view.backgroundColor = .white
+        addSubviews()
+        setupContraints()
     }
     
-    func setupView() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
         
-        view.addSubview(newButton)
-        view.addSubview(profileHeaderView)
+    }
+    private func addSubviews(){
+        view.addSubview(tableView)
     }
     
-    func setupContraintsProfile() {
+    
+    private func setupContraints() {
+        
         NSLayoutConstraint.activate([
-            profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            profileHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
-            
-            newButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            newButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            newButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 }
+
+extension ProfileViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0   {
+            return 0
+        }
+        else {
+            
+            return postFeed.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+        cell.setupCell(Cell: postFeed[indexPath.row])
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            return ProfileHeaderView()
+        } else {
+            return nil
+        }
+    }
+}
+
+extension ProfileViewController: UITableViewDelegate {}
+
+extension UIView {
+    static var identifier: String {
+        String(describing: self)
+    }
+}
+
+
+
