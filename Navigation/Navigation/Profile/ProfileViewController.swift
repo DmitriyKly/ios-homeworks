@@ -12,11 +12,15 @@ class ProfileViewController: UIViewController {
     
     private let postFeed = PostView.makePost()
     
+  //  let photoGalleryVC = PhotosViewController()
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
+        tableView.register(PhotosSlideController.self, forCellReuseIdentifier: PhotosSlideController.identifier)
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
@@ -39,7 +43,19 @@ class ProfileViewController: UIViewController {
         view.addSubview(tableView)
     }
     
-    
+    func pushPhotosViewController() {
+            let photosVC = PhotosViewController()
+            photosVC.parentNavigationControler = self.navigationController
+            navigationController?.pushViewController(photosVC, animated: true)
+            
+        }
+     
+    /*
+    func pushPhotosViewController(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let photoGalleryVC = PhotosViewController()
+        navigationController?.pushViewController(photoGalleryVC, animated: true)
+    }
+     */
     private func setupContraints() {
         
         NSLayoutConstraint.activate([
@@ -51,6 +67,7 @@ class ProfileViewController: UIViewController {
     }
 }
 
+
 extension ProfileViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         2
@@ -58,7 +75,7 @@ extension ProfileViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0   {
-            return 0
+            return 1
         }
         else {
             
@@ -67,9 +84,17 @@ extension ProfileViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
-        cell.setupCell(Cell: postFeed[indexPath.row])
-        return cell
+        if indexPath.section == 0  {
+            let cell = tableView.dequeueReusableCell(withIdentifier: PhotosSlideController.identifier, for: indexPath) as! PhotosSlideController
+            cell.tapHandler = pushPhotosViewController
+            return cell
+            
+        } else  {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+            cell.setupCell(Cell: postFeed[indexPath.row])
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -78,16 +103,22 @@ extension ProfileViewController: UITableViewDataSource {
         } else {
             return nil
         }
+        
+      
+        
     }
-}
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+           if indexPath.section == 0 {
+               return 150
+           }
+           return tableView.rowHeight
+       }
+   }
+
 
 extension ProfileViewController: UITableViewDelegate {}
 
-extension UIView {
-    static var identifier: String {
-        String(describing: self)
-    }
-}
 
 
 
