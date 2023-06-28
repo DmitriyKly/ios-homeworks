@@ -12,15 +12,12 @@ class ProfileViewController: UIViewController {
     
     private let postFeed = PostView.makePost()
     
-  //  let photoGalleryVC = PhotosViewController()
-    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
-        tableView.register(PhotosSlideController.self, forCellReuseIdentifier: PhotosSlideController.identifier)
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
@@ -50,12 +47,6 @@ class ProfileViewController: UIViewController {
             
         }
      
-    /*
-    func pushPhotosViewController(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let photoGalleryVC = PhotosViewController()
-        navigationController?.pushViewController(photoGalleryVC, animated: true)
-    }
-     */
     private func setupContraints() {
         
         NSLayoutConstraint.activate([
@@ -85,7 +76,7 @@ extension ProfileViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0  {
-            let cell = tableView.dequeueReusableCell(withIdentifier: PhotosSlideController.identifier, for: indexPath) as! PhotosSlideController
+            let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifier, for: indexPath) as! PhotosTableViewCell
             cell.tapHandler = pushPhotosViewController
             return cell
             
@@ -104,7 +95,6 @@ extension ProfileViewController: UITableViewDataSource {
             return nil
         }
         
-      
         
     }
     

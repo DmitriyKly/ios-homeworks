@@ -9,16 +9,12 @@ import UIKit
 
 final class PhotosCollectionViewCell: UICollectionViewCell {
     
-    //MARK: - Property
-
     private let postImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        return imageView
+        let postImageView = UIImageView()
+        postImageView.translatesAutoresizingMaskIntoConstraints = false
+        postImageView.contentMode = .scaleAspectFit
+        return postImageView
     }()
-    
-    //MARK: - Inits
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,21 +26,17 @@ final class PhotosCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    //MARK: - Functions
 
     private func custmizeCell() {
     }
     
-    func setupCell(model: PostImages) {
+    func setupCell(model: ImagesHeader) {
         postImageView.image = UIImage(named: model.image)
     }
 
     private func addSubviews(){
         contentView.addSubview(postImageView)
     }
-    
-    //MARK: - Constraints
     
     private func setupContraints() {
         

@@ -7,13 +7,9 @@
 
 import UIKit
 
-import UIKit
-
 class PhotosViewController: UIViewController {
      
-    //MARK: - Properties
-    
-    private let postImages = PostImages.maketPost()
+    private let postImages = ImagesHeader.maketPost()
     
     var parentNavigationControler: UINavigationController? = nil
 
@@ -32,8 +28,6 @@ class PhotosViewController: UIViewController {
         collectionView.backgroundColor = .white
         return collectionView
     }()
-    
-    //MARK: - LifeCicle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,14 +39,10 @@ class PhotosViewController: UIViewController {
         
         title = "Photo Gallery"
     }
-    
-    //MARK: - Functions
-        
+
     private func addSubviews(){
         view.addSubview(collectionView)
     }
-    
-    //MARK: - Constraints
 
     private func setupContraints() {
         NSLayoutConstraint.activate([
@@ -63,8 +53,6 @@ class PhotosViewController: UIViewController {
         ])
     }
 }
-
-//MARK: UICollectionViewDataSource
 
 extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -77,8 +65,6 @@ extension PhotosViewController: UICollectionViewDataSource {
         return cell
     }
 }
-
-//MARK: UICollectionViewDelegateFlowLayout
 
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     private var inset: CGFloat { return 8}
