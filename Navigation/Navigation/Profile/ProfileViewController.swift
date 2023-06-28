@@ -17,8 +17,10 @@ class ProfileViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
         tableView.dataSource = self
         tableView.delegate = self
+        
         return tableView
     }()
     
@@ -39,6 +41,12 @@ class ProfileViewController: UIViewController {
         view.addSubview(tableView)
     }
     
+    func pushPhotosViewController() {
+        let photosVC = PhotosViewController()
+        photosVC.parentNavigationControler = self.navigationController
+        navigationController?.pushViewController(photosVC, animated: true)
+        
+    }
     
     private func setupContraints() {
         
@@ -51,6 +59,7 @@ class ProfileViewController: UIViewController {
     }
 }
 
+
 extension ProfileViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         2
@@ -58,7 +67,7 @@ extension ProfileViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0   {
-            return 0
+            return 1
         }
         else {
             
@@ -67,9 +76,17 @@ extension ProfileViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
-        cell.setupCell(Cell: postFeed[indexPath.row])
-        return cell
+        if indexPath.section == 0  {
+            let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifier, for: indexPath) as! PhotosTableViewCell
+            cell.tapHandler = pushPhotosViewController
+            return cell
+            
+        } else  {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+            cell.setupCell(Cell: postFeed[indexPath.row])
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -78,16 +95,21 @@ extension ProfileViewController: UITableViewDataSource {
         } else {
             return nil
         }
+        
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 125
+        }
+        return tableView.rowHeight
     }
 }
+
 
 extension ProfileViewController: UITableViewDelegate {}
 
-extension UIView {
-    static var identifier: String {
-        String(describing: self)
-    }
-}
 
 
 
