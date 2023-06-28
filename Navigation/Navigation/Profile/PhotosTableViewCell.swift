@@ -8,12 +8,12 @@
 import UIKit
 
 class PhotosTableViewCell: UITableViewCell {
-
-    var tapHandler: (() -> Void)? = nil
-        
-    private let postImages = ImagesHeader.maketPost()
     
-    private let headerLabel: UILabel = {
+    var tapHandler: (() -> Void)? = nil
+    
+     let postImages = ImagesHeader.maketPost()
+    
+    lazy var headerLabel: UILabel = {
         let headerLabel = UILabel()
         headerLabel.font = UIFont.boldSystemFont(ofSize: 24)
         headerLabel.text = "Photos"
@@ -22,7 +22,7 @@ class PhotosTableViewCell: UITableViewCell {
         return headerLabel
     }()
     
-    private lazy var imageArrow: UIImageView = {
+     lazy var imageArrow: UIImageView = {
         let imageArrow = UIImageView()
         imageArrow.image =  UIImage(systemName: "arrow.right")
         imageArrow.contentMode = .scaleAspectFill
@@ -33,7 +33,7 @@ class PhotosTableViewCell: UITableViewCell {
         return imageArrow
     }()
     
-    private lazy var collectionView: UICollectionView = {
+     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -52,10 +52,11 @@ class PhotosTableViewCell: UITableViewCell {
         if let action = self.tapHandler { action() }
     }
     
-    private let postImageView: UIImageView = {
+    lazy var  postImageView: UIImageView = {
         let postImageView = UIImageView()
         postImageView.translatesAutoresizingMaskIntoConstraints = false
         postImageView.contentMode = .scaleAspectFit
+        
         return postImageView
     }()
     
@@ -83,17 +84,17 @@ class PhotosTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             
-            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: headerLabel.topAnchor, constant: 24),
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            imageArrow.widthAnchor.constraint(equalToConstant: Metric.imageArrowInset),
+            imageArrow.widthAnchor.constraint(equalToConstant: 30),
             imageArrow.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
             imageArrow.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor),
             
-            headerLabel.topAnchor.constraint(equalTo: topAnchor ,constant: Metric.labelInset),
-            headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor,constant: Metric.labelInset)
+            headerLabel.topAnchor.constraint(equalTo: topAnchor ,constant: 12),
+            headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 12)
         ])
     }
 }
@@ -117,29 +118,5 @@ extension PhotosTableViewCell: UICollectionViewDelegateFlowLayout {
         let width = (collectionView.bounds.width - 10 * 4) / 4
         return CGSize(width: width, height: width)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        inset
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        inset
-    }
-}
-
-extension PhotosTableViewCell {
-    enum Metric {
-        static let labelInset: CGFloat = 12
-        static let imageInset: CGFloat = 12
-        static let imageLeftInset: CGFloat = 8
-        static let imageArrowInset: CGFloat = 30
-    }
-}
-
-extension PhotosTableViewCell {
     
 }

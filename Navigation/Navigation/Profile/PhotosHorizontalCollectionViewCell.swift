@@ -7,12 +7,14 @@
 
 import UIKit
 
- class PhotosHorizontalCollectionViewCell: UICollectionViewCell {
-
+class PhotosHorizontalCollectionViewCell: UICollectionViewCell {
+    
     private lazy var postImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 12
+        imageView.clipsToBounds = true
         
         return imageView
     }()
@@ -26,23 +28,23 @@ import UIKit
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-     
+    
     func setupCell(model: ImagesHeader) {
         postImageView.image = UIImage(named: model.image)
     }
     
     func addSubviews(){
         contentView.addSubview(postImageView)
-       
+        
     }
     
-     func setupContraints() {
+    func setupContraints() {
         
         NSLayoutConstraint.activate([
             postImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            postImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            postImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             postImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            postImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-            ])
+            postImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 12)
+        ])
     }
 }

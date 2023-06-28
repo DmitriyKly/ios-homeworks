@@ -8,12 +8,12 @@
 import UIKit
 
 class PhotosViewController: UIViewController {
-     
+    
     private let postImages = ImagesHeader.maketPost()
     
     var parentNavigationControler: UINavigationController? = nil
-
-    private lazy var collectionView: UICollectionView = {
+    
+   lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         
@@ -21,30 +21,30 @@ class PhotosViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray2
         collectionView.dataSource = self
-        
         collectionView.register(
             PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.backgroundColor = .white
-        return collectionView
+        
+       return collectionView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationController?.navigationBar.isHidden = false
-
+        
         addSubviews()
         setupContraints()
         
         title = "Photo Gallery"
     }
-
-    private func addSubviews(){
+    
+    func addSubviews(){
         view.addSubview(collectionView)
     }
-
-    private func setupContraints() {
+    
+    func setupContraints() {
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -67,21 +67,15 @@ extension PhotosViewController: UICollectionViewDataSource {
 }
 
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
-    private var inset: CGFloat { return 8}
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.bounds.width - inset * 4) / 3
-        return CGSize(width: width, height: width)
-   }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-         inset
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (collectionView.frame.width - 8 * 12) / 3
+        return CGSize(width: width, height: width)
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
+        UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        inset
-    }
 }

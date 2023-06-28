@@ -20,6 +20,7 @@ class ProfileViewController: UIViewController {
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
         tableView.dataSource = self
         tableView.delegate = self
+        
         return tableView
     }()
     
@@ -41,12 +42,12 @@ class ProfileViewController: UIViewController {
     }
     
     func pushPhotosViewController() {
-            let photosVC = PhotosViewController()
-            photosVC.parentNavigationControler = self.navigationController
-            navigationController?.pushViewController(photosVC, animated: true)
-            
-        }
-     
+        let photosVC = PhotosViewController()
+        photosVC.parentNavigationControler = self.navigationController
+        navigationController?.pushViewController(photosVC, animated: true)
+        
+    }
+    
     private func setupContraints() {
         
         NSLayoutConstraint.activate([
@@ -99,12 +100,12 @@ extension ProfileViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-           if indexPath.section == 0 {
-               return 150
-           }
-           return tableView.rowHeight
-       }
-   }
+        if indexPath.section == 0 {
+            return 125
+        }
+        return tableView.rowHeight
+    }
+}
 
 
 extension ProfileViewController: UITableViewDelegate {}
