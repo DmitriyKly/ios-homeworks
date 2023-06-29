@@ -9,6 +9,8 @@ import UIKit
 
 class ProfileHeaderView: UIView, UITextFieldDelegate {
     
+    var isImageExpanded = false
+    
     lazy var avatarImageView: UIView = {
         let avatarImageView = UIView()
         avatarImageView.layer.cornerRadius = 60
@@ -39,8 +41,30 @@ class ProfileHeaderView: UIView, UITextFieldDelegate {
         imageViewSnoopDog.layer.cornerRadius = avatarImageView.layer.cornerRadius
         imageViewSnoopDog.layer.borderColor = avatarImageView.layer.borderColor
         imageViewSnoopDog.layer.borderWidth = avatarImageView.layer.borderWidth
+        imageViewSnoopDog.isUserInteractionEnabled = true
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleImageTap))
+        tapGesture.numberOfTapsRequired = 1
+        imageViewSnoopDog.addGestureRecognizer(tapGesture)
         
         return imageViewSnoopDog
+    }()
+    
+    lazy var overlayView: UIView = {
+        let overlayView = UIView(frame: bounds)
+        overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        overlayView.alpha = 0
+        overlayView.isUserInteractionEnabled = false
+        return overlayView
+    }()
+    
+    lazy var closeButton: UIButton = {
+        let closeButton = UIButton(type: .custom)
+        closeButton.setImage(UIImage(named: "close_icon"), for: .normal)
+        closeButton.alpha = 0
+        closeButton.addTarget(self, action: #selector(handleCloseButtonTap), for: .touchUpInside)
+        closeButton.frame = CGRect(x: frame.width - 40, y: 20, width: 30, height: 30)
+        return closeButton
     }()
     
     lazy var statusLabel: UILabel = {
@@ -101,10 +125,48 @@ class ProfileHeaderView: UIView, UITextFieldDelegate {
         self.addSubview(setStatusButton)
         self.addSubview(imageViewSnoopDog)
         self.addSubview(statusTextField)
+        self.addSubview(overlayView)
+        self.addSubview(closeButton)
     }
     
     func addButtons() {
         setStatusButton.addTarget(self, action: #selector(printStatus), for: .touchUpInside)
+    }
+    
+    @objc func handleImageTap() {
+        if isImageExpanded {
+            UIView.animate(withDuration: 0.5) {
+                self.imageViewSnoopDog.transform = .identity
+                self.overlayView.alpha = 0
+            }
+            UIView.animate(withDuration: 0.3, delay: 0.2, options: [])
+            {
+                self.closeButton.alpha = 0
+            }
+        } else {
+            UIView.animate(withDuration: 0.5) {
+                let scale = UIScreen.main.bounds.width / self.imageViewSnoopDog.frame.width
+                self.imageViewSnoopDog.transform = CGAffineTransform(scaleX: scale, y: scale)
+                self.imageViewSnoopDog.center = self.center
+                self.overlayView.alpha = 1
+            }
+            UIView.animate(withDuration: 0.3, delay: 0.5, options: []){
+                self.closeButton.alpha = 1
+            }
+        }
+        
+        isImageExpanded = !isImageExpanded
+    }
+    
+    @objc func handleCloseButtonTap() {
+        UIView.animate(withDuration: 0.3) {
+            self.closeButton.alpha = 0
+        }
+        UIView.animate(withDuration: 0.5, delay: 0.3, options: []) {
+            self.imageViewSnoopDog.transform = .identity
+            self.overlayView.alpha = 0
+        }
+        isImageExpanded = false
     }
     
     func setupContraints() {
