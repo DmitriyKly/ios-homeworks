@@ -210,8 +210,8 @@ class LoginViewController: UIViewController{
     }
     
     
-        func checkCredentials() {
-                let alert = UIAlertController(title: "Ошибка", message: "Неправильный логин или пароль", preferredStyle: .alert)
+        func checkCredentialsLogin() {
+                let alert = UIAlertController(title: "Ошибка", message: "Неправильный логин", preferredStyle: .alert)
     
                 let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
     
@@ -219,8 +219,27 @@ class LoginViewController: UIViewController{
     
                 self.present(alert, animated: true, completion: nil)
             }
-        
+    
+    func checkCredentialsPassword() {
+            let alert = UIAlertController(title: "Ошибка", message: "Неправильный пароль", preferredStyle: .alert)
 
+            let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
+
+            alert.addAction(ok)
+
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+    func checkCredentialsLoginPass() {
+            let alert = UIAlertController(title: "Ошибка", message: "Неправильный логин и пароль", preferredStyle: .alert)
+
+            let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
+
+            alert.addAction(ok)
+
+            self.present(alert, animated: true, completion: nil)
+        }
+    
     
     @objc func showProfileViewController() {
         guard let mailText = mailOfPhoneField.text, !mailText.isEmpty
@@ -248,10 +267,23 @@ class LoginViewController: UIViewController{
         else {
             return
         }
-        
         if username != standartUsername && password != standartPassword {
-            checkCredentials()
+            
+            checkCredentialsLoginPass()
+            
         }
+        
+        if username != standartUsername {
+            
+            checkCredentialsLogin()
+        }
+        
+        if password != standartPassword {
+            
+            checkCredentialsPassword()
+        }
+        
+        
         
         let profileViewController = ProfileViewController()
         navigationController?.pushViewController(profileViewController, animated: true)
@@ -259,7 +291,7 @@ class LoginViewController: UIViewController{
         
     @objc func ChecktextField(_ textField: UITextField) {
         if let password = textField.text {
-            // Проверяем длину пароля
+            
             if password.count < minimumPasswordLength {
                 passwordWarningLabel.isHidden = false
             } else {
