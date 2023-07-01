@@ -13,6 +13,17 @@ class LoginViewController: UIViewController{
     
     let minimumPasswordLength = 6
     
+    let standartUsername = "admin"
+    
+    let standartPassword = "password"
+    
+    /*
+    let alertController = UIAlertController(title: "Ошибка", message: "Введены неверные данные", preferredStyle: .alert)
+    
+    let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+    
+    alertController.addAction(cancelAction)
+    */
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -75,7 +86,7 @@ class LoginViewController: UIViewController{
         passwordField.indent(size: 16)
         passwordField.isSecureTextEntry = true
         passwordField.delegate = self
-       // passwordField.addTarget(self, action: #selector(passwordTextFieldDidChange(_:)), for: .editingChanged)
+        passwordField.addTarget(self, action: #selector(ChecktextField), for: .editingChanged)
                 
         return passwordField
       }()
@@ -204,6 +215,21 @@ class LoginViewController: UIViewController{
         animation.values = [-10.0, 10.0, -10.0, 10.0, -5.0, 5.0, -2.0, 2.0, 0.0]
         contentView.layer.add(animation, forKey: "shake")
     }
+    
+    
+    func checkCredentials(username: String, password: String) {
+        if username == standartUsername && password == standartPassword{
+            print("Все ок")
+        } else {
+            let alert = UIAlertController(title: "Ошибка", message: "Введены неправильные данные", preferredStyle: .alert)
+            
+            let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
+
+            alert.addAction(ok)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 
     
     @objc func showProfileViewController() {
@@ -220,9 +246,22 @@ class LoginViewController: UIViewController{
             return
         }
         
+        
         let profileViewController = ProfileViewController()
         navigationController?.pushViewController(profileViewController, animated: true)
     }
+        
+    @objc func ChecktextField(_ textField: UITextField) {
+        if let password = textField.text {
+            // Проверяем длину пароля
+            if password.count < minimumPasswordLength {
+                passwordWarningLabel.isHidden = false
+            } else {
+                passwordWarningLabel.isHidden = true
+            }
+        }
+    }
+    
 }
 
 extension LoginViewController: UITextFieldDelegate {
@@ -230,19 +269,7 @@ extension LoginViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-            let currentLength = textField.text?.count ?? 0
-            let newLength = currentLength + string.count - range.length
 
-            if newLength < minimumPasswordLength {
-                passwordWarningLabel.isHidden = false
-            } else {
-                passwordWarningLabel.isHidden = true
-            }
-
-            return true
-        }
     
 }
     
