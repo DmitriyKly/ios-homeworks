@@ -10,6 +10,9 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    
+    
+    
     private let postFeed = PostView.makePost()
     
     private lazy var tableView: UITableView = {
