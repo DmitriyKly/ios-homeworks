@@ -246,6 +246,13 @@ class LoginViewController: UIViewController{
             return
         }
         
+        guard passwordWarningLabel.isHidden != false
+                
+        else {
+            shakeTextField()
+            return
+        }
+                
         
         let profileViewController = ProfileViewController()
         navigationController?.pushViewController(profileViewController, animated: true)
