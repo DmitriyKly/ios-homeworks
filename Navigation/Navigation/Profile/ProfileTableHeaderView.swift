@@ -63,17 +63,17 @@ class ProfileHeaderView: UIView {
     }()
     
     private lazy var closeAvatar: UIImageView = {
-        let imageView = UIImageView()
-        imageView.layer.borderColor = UIColor.white.cgColor
-        imageView.image =  UIImage(systemName: "xmark.circle")
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.isUserInteractionEnabled = true
-        imageView.layer.opacity = 0
-        imageView.tintColor = .white
-        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapCloseGesture)))
-        return imageView
+        let closeAvatar = UIImageView()
+        closeAvatar.layer.borderColor = UIColor.white.cgColor
+        closeAvatar.image =  UIImage(systemName: "xmark.circle")
+        closeAvatar.contentMode = .scaleAspectFill
+        closeAvatar.clipsToBounds = true
+        closeAvatar.translatesAutoresizingMaskIntoConstraints = false
+        closeAvatar.isUserInteractionEnabled = true
+        closeAvatar.layer.opacity = 0
+        closeAvatar.tintColor = .white
+        closeAvatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapCloseGesture)))
+        return closeAvatar
     }()
     
     lazy var fullNameLabel: UILabel = {
