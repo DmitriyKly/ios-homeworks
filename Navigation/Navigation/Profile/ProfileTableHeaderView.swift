@@ -8,7 +8,6 @@
 import UIKit
 class ProfileHeaderView: UIView {
     
-
     lazy var statusLabel: UILabel = {
         let statusLabel = UILabel()
         statusLabel.text = "Write Your Status"
@@ -108,8 +107,6 @@ class ProfileHeaderView: UIView {
     private var heightImageView = NSLayoutConstraint()
     private var heightWrapView = NSLayoutConstraint()
     
-    //MARK: - inits
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addButtons()
@@ -121,7 +118,6 @@ class ProfileHeaderView: UIView {
         super.init(coder: coder)
     }
     
-    //MARK: - Functions
     
     private func addSubviews(){
         addSubview(fullNameLabel)
@@ -138,25 +134,20 @@ class ProfileHeaderView: UIView {
         setStatusButton.addTarget(self, action: #selector(printStatus), for: .touchUpInside)
         
     }
-    
-    //MARK: - Constraints
+
     
     private func setupContraints() {
         
-        //                  imageViewSnoopDog
         leadingImageView = imageViewSnoopDog.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
         topImageView = imageViewSnoopDog.topAnchor.constraint(equalTo: topAnchor,constant: 16)
         widthImageView = imageViewSnoopDog.widthAnchor.constraint(equalToConstant: 95)
         heightImageView = imageViewSnoopDog.heightAnchor.constraint(equalToConstant: 95)
         NSLayoutConstraint.activate([leadingImageView, topImageView, widthImageView, heightImageView])
         
-        //                  wrapView
         heightWrapView = blackBackground.heightAnchor.constraint(equalToConstant: 0)
         NSLayoutConstraint.activate([heightWrapView])
         
         NSLayoutConstraint.activate([
-            
-            
             
             blackBackground.leadingAnchor.constraint(equalTo: leadingAnchor),
             blackBackground.trailingAnchor.constraint(equalTo: trailingAnchor),
