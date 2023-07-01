@@ -180,8 +180,29 @@ class LoginViewController: UIViewController{
             logInButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
-    
+
+    func shakeTextField() {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: .linear)
+        animation.duration = 0.6
+        animation.values = [-10.0, 10.0, -10.0, 10.0, -5.0, 5.0, -2.0, 2.0, 0.0]
+        contentView.layer.add(animation, forKey: "shake")
+    }
+
+
     @objc func showProfileViewController() {
+        guard let mailText = mailOfPhoneField.text, !mailText.isEmpty
+
+        else {
+            shakeTextField()
+            return
+        }
+        guard let passText = passwordField.text, !passText.isEmpty
+        
+        else {
+            shakeTextField()
+            return
+        }
         let profileViewController = ProfileViewController()
         navigationController?.pushViewController(profileViewController, animated: true)
     }
