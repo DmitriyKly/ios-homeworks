@@ -7,18 +7,22 @@
 
 import UIKit
 
+protocol CustomHeaderDelegate: AnyObject {
+    func didTapImage(_ image: UIImage?, imageRect: CGRect)
+}
+
 class ProfileHeaderView: UIView, UITextFieldDelegate {
     
-    lazy var avatarImageView: UIView = {
-        let avatarImageView = UIView()
-        avatarImageView.layer.cornerRadius = 60
-        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        avatarImageView.backgroundColor = .white
-        avatarImageView.layer.borderColor = UIColor.white.cgColor
-        avatarImageView.layer.borderWidth = 3
-        
-        return avatarImageView
-    }()
+//    lazy var avatarImageView: UIView = {
+//        let avatarImageView = UIView()
+//        avatarImageView.layer.cornerRadius = 60
+//        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
+//        avatarImageView.backgroundColor = .white
+//        avatarImageView.layer.borderColor = UIColor.white.cgColor
+//        avatarImageView.layer.borderWidth = 3
+//
+//        return avatarImageView
+//    }()
     
     lazy var fullNameLabel: UILabel = {
         let fullNameLabel = UILabel()
@@ -36,9 +40,9 @@ class ProfileHeaderView: UIView, UITextFieldDelegate {
         imageViewSnoopDog.contentMode = .scaleAspectFill
         imageViewSnoopDog.clipsToBounds = true
         imageViewSnoopDog.translatesAutoresizingMaskIntoConstraints = false
-        imageViewSnoopDog.layer.cornerRadius = avatarImageView.layer.cornerRadius
-        imageViewSnoopDog.layer.borderColor = avatarImageView.layer.borderColor
-        imageViewSnoopDog.layer.borderWidth = avatarImageView.layer.borderWidth
+        imageViewSnoopDog.layer.cornerRadius = 60
+        imageViewSnoopDog.layer.borderColor = UIColor.white.cgColor
+        imageViewSnoopDog.layer.borderWidth = 3
         
         return imageViewSnoopDog
     }()
@@ -91,17 +95,32 @@ class ProfileHeaderView: UIView, UITextFieldDelegate {
         setupView()
         setupContraints()
         addButtons()
+        addGesture()
     }
     
     func setupView() {
         
-        self.addSubview(avatarImageView)
+       // self.addSubview(avatarImageView)
         self.addSubview(fullNameLabel)
         self.addSubview(statusLabel)
         self.addSubview(setStatusButton)
         self.addSubview(imageViewSnoopDog)
         self.addSubview(statusTextField)
     }
+    
+    private func addGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapAction))
+        imageViewSnoopDog.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func tapAction() {
+        delegate?.didTapImage(imageViewSnoopDog.image, imageRect: imageViewSnoopDog.frame)
+        callBack?(imageViewSnoopDog.image, imageViewSnoopDog.frame)
+    }
+    
+    weak var delegate: CustomHeaderDelegate?
+    
+    var callBack: ((UIImage?, CGRect) -> Void)?
     
     func addButtons() {
         setStatusButton.addTarget(self, action: #selector(printStatus), for: .touchUpInside)
@@ -111,21 +130,20 @@ class ProfileHeaderView: UIView, UITextFieldDelegate {
         
         NSLayoutConstraint.activate([
             
-            avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            avatarImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
+          //  avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
+           // avatarImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
             
-            imageViewSnoopDog.topAnchor.constraint(equalTo: avatarImageView.topAnchor,constant: 0),
-            imageViewSnoopDog.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor,constant: 0),
-            imageViewSnoopDog.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 0),
-            imageViewSnoopDog.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 0),
+            imageViewSnoopDog.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor,constant: 16),
+            imageViewSnoopDog.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor,constant: 16),
+       
             imageViewSnoopDog.widthAnchor.constraint(equalToConstant: 120),
             imageViewSnoopDog.heightAnchor.constraint(equalToConstant: 120),
             
             fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
-            fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 27),
+            fullNameLabel.leadingAnchor.constraint(equalTo: imageViewSnoopDog.trailingAnchor, constant: 27),
             fullNameLabel.widthAnchor.constraint(equalTo: widthAnchor),
             
-            statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor,constant: 27),
+            statusLabel.leadingAnchor.constraint(equalTo: imageViewSnoopDog.trailingAnchor,constant: 27),
             statusLabel.bottomAnchor.constraint(equalTo: statusTextField.topAnchor, constant: -16),
             
             statusTextField.leadingAnchor.constraint(equalTo: statusLabel.leadingAnchor),
@@ -133,7 +151,7 @@ class ProfileHeaderView: UIView, UITextFieldDelegate {
             statusTextField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -16),
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
             
-            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
+            setStatusButton.topAnchor.constraint(equalTo: imageViewSnoopDog.bottomAnchor, constant: 16),
             setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
