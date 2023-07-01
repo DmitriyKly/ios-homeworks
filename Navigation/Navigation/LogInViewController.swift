@@ -17,13 +17,6 @@ class LoginViewController: UIViewController{
     
     let standartPassword = "password"
     
-    /*
-    let alertController = UIAlertController(title: "Ошибка", message: "Введены неверные данные", preferredStyle: .alert)
-    
-    let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-    
-    alertController.addAction(cancelAction)
-    */
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -217,19 +210,16 @@ class LoginViewController: UIViewController{
     }
     
     
-    func checkCredentials(username: String, password: String) {
-        if username == standartUsername && password == standartPassword{
-            print("Все ок")
-        } else {
-            let alert = UIAlertController(title: "Ошибка", message: "Введены неправильные данные", preferredStyle: .alert)
-            
-            let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
-
-            alert.addAction(ok)
-            
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
+        func checkCredentials() {
+                let alert = UIAlertController(title: "Ошибка", message: "Неправильный логин или пароль", preferredStyle: .alert)
+    
+                let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
+    
+                alert.addAction(ok)
+    
+                self.present(alert, animated: true, completion: nil)
+            }
+        
 
     
     @objc func showProfileViewController() {
@@ -252,7 +242,16 @@ class LoginViewController: UIViewController{
             shakeTextField()
             return
         }
-                
+         
+        guard let username = mailOfPhoneField.text, let password = passwordField.text
+        
+        else {
+            return
+        }
+        
+        if username != standartUsername && password != standartPassword {
+            checkCredentials()
+        }
         
         let profileViewController = ProfileViewController()
         navigationController?.pushViewController(profileViewController, animated: true)
