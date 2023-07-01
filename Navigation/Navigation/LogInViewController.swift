@@ -11,6 +11,8 @@ class LoginViewController: UIViewController{
 
     let notificationCenter = NotificationCenter.default
     
+    let minimumPasswordLength = 6
+    
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -73,9 +75,18 @@ class LoginViewController: UIViewController{
         passwordField.indent(size: 16)
         passwordField.isSecureTextEntry = true
         passwordField.delegate = self
+       // passwordField.addTarget(self, action: #selector(passwordTextFieldDidChange(_:)), for: .editingChanged)
                 
         return passwordField
       }()
+    
+    lazy var passwordWarningLabel: UILabel = {
+        let passwordWarningLabel = UILabel()
+        passwordWarningLabel.translatesAutoresizingMaskIntoConstraints = false
+        passwordWarningLabel.text = "Не достаточно символов"
+        passwordWarningLabel.isHidden = true
+        return passwordWarningLabel
+    }()
     
     lazy var logInButton: UIButton = {
           let logInButton = UIButton(type: .system)
@@ -94,7 +105,7 @@ class LoginViewController: UIViewController{
         return logInButton
       }()
     
-       
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
@@ -136,6 +147,7 @@ class LoginViewController: UIViewController{
         contentView.addSubview(logInButton)
         fieldContainer.addSubview(mailOfPhoneField)
         fieldContainer.addSubview(passwordField)
+        contentView.addSubview(passwordWarningLabel)
  
     }
     
@@ -173,7 +185,11 @@ class LoginViewController: UIViewController{
             passwordField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             passwordField.heightAnchor.constraint(equalToConstant: 50),
             
-            logInButton.topAnchor.constraint(equalTo: fieldContainer.bottomAnchor, constant: 16),
+            passwordWarningLabel.topAnchor.constraint(equalTo: fieldContainer.bottomAnchor, constant: 6),
+            passwordWarningLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            passwordWarningLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+      
+            logInButton.topAnchor.constraint(equalTo: passwordWarningLabel.bottomAnchor, constant: 12),
             logInButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             logInButton.heightAnchor.constraint(equalToConstant: 49),
@@ -189,7 +205,7 @@ class LoginViewController: UIViewController{
         contentView.layer.add(animation, forKey: "shake")
     }
 
-
+    
     @objc func showProfileViewController() {
         guard let mailText = mailOfPhoneField.text, !mailText.isEmpty
 
@@ -203,6 +219,7 @@ class LoginViewController: UIViewController{
             shakeTextField()
             return
         }
+        
         let profileViewController = ProfileViewController()
         navigationController?.pushViewController(profileViewController, animated: true)
     }
@@ -213,6 +230,20 @@ extension LoginViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            let currentLength = textField.text?.count ?? 0
+            let newLength = currentLength + string.count - range.length
+
+            if newLength < minimumPasswordLength {
+                passwordWarningLabel.isHidden = false
+            } else {
+                passwordWarningLabel.isHidden = true
+            }
+
+            return true
+        }
+    
 }
     
 extension UITextField {
