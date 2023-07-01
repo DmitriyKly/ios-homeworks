@@ -200,7 +200,7 @@ class ProfileHeaderView: UIView {
                 self.leadingImageView.constant = 30
                 self.trailingImageView.constant = 30
                 self.topImageView.constant = 30
-                self.heightImageView.constant = UIScreen.main.bounds.height - 220
+                self.heightImageView.constant = UIScreen.main.bounds.height * 0.5
                 self.heightWrapView.constant =  UIScreen.main.bounds.height
                 self.imageViewSnoopDog.layer.cornerRadius = 0
                 self.blackBackground.isHidden = false
