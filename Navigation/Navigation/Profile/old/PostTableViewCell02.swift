@@ -4,8 +4,7 @@
 //
 //  Created by dmitriy on 23/6/2023.
 //
-
-import UIKit
+/*
 
 class PostTableViewCell: UITableViewCell {
     
@@ -150,3 +149,5 @@ class PostTableViewCell: UITableViewCell {
         ])
     }
 }
+
+*/

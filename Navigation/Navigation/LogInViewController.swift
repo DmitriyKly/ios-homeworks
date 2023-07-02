@@ -13,9 +13,9 @@ class LoginViewController: UIViewController{
     
     let minimumPasswordLength = 6
     
-    let standartUsername = "admin"
+    let standartUsername = "Admin"
     
-    let standartPassword = "password"
+    let standartPassword = "Password"
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
