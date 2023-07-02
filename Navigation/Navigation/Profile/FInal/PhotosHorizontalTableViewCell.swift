@@ -102,7 +102,6 @@ class PhotosTableViewCell: UITableViewCell {
             stackView.topAnchor.constraint(equalTo: backView.topAnchor, constant: 12),
             stackView.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 12),
             stackView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -12),
-            //transitionButton.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1),
             photoCollectionView.topAnchor.constraint(equalTo: stackView.bottomAnchor),
             photoCollectionView.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 12),
             photoCollectionView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -12),
