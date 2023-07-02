@@ -11,6 +11,12 @@ class LoginViewController: UIViewController{
 
     let notificationCenter = NotificationCenter.default
     
+    let minimumPasswordLength = 6
+    
+    let standartUsername = "Admin"
+    
+    let standartPassword = "Password"
+    
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -73,9 +79,18 @@ class LoginViewController: UIViewController{
         passwordField.indent(size: 16)
         passwordField.isSecureTextEntry = true
         passwordField.delegate = self
+        passwordField.addTarget(self, action: #selector(ChecktextField), for: .editingChanged)
                 
         return passwordField
       }()
+    
+    lazy var passwordWarningLabel: UILabel = {
+        let passwordWarningLabel = UILabel()
+        passwordWarningLabel.translatesAutoresizingMaskIntoConstraints = false
+        passwordWarningLabel.text = "Не достаточно символов"
+        passwordWarningLabel.isHidden = true
+        return passwordWarningLabel
+    }()
     
     lazy var logInButton: UIButton = {
           let logInButton = UIButton(type: .system)
@@ -94,7 +109,7 @@ class LoginViewController: UIViewController{
         return logInButton
       }()
     
-       
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
@@ -136,6 +151,7 @@ class LoginViewController: UIViewController{
         contentView.addSubview(logInButton)
         fieldContainer.addSubview(mailOfPhoneField)
         fieldContainer.addSubview(passwordField)
+        contentView.addSubview(passwordWarningLabel)
  
     }
     
@@ -173,18 +189,117 @@ class LoginViewController: UIViewController{
             passwordField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             passwordField.heightAnchor.constraint(equalToConstant: 50),
             
-            logInButton.topAnchor.constraint(equalTo: fieldContainer.bottomAnchor, constant: 16),
+            passwordWarningLabel.topAnchor.constraint(equalTo: fieldContainer.bottomAnchor, constant: 6),
+            passwordWarningLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            passwordWarningLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+      
+            logInButton.topAnchor.constraint(equalTo: passwordWarningLabel.bottomAnchor, constant: 12),
             logInButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             logInButton.heightAnchor.constraint(equalToConstant: 49),
             logInButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
+
+    func shakeTextField() {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: .linear)
+        animation.duration = 0.6
+        animation.values = [-10.0, 10.0, -10.0, 10.0, -5.0, 5.0, -2.0, 2.0, 0.0]
+        contentView.layer.add(animation, forKey: "shake")
+    }
+    
+    
+        func checkCredentialsLogin() {
+                let alert = UIAlertController(title: "Ошибка", message: "Неправильный логин", preferredStyle: .alert)
+    
+                let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
+    
+                alert.addAction(ok)
+    
+                self.present(alert, animated: true, completion: nil)
+            }
+    
+    func checkCredentialsPassword() {
+            let alert = UIAlertController(title: "Ошибка", message: "Неправильный пароль", preferredStyle: .alert)
+
+            let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
+
+            alert.addAction(ok)
+
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+    func checkCredentialsLoginPass() {
+            let alert = UIAlertController(title: "Ошибка", message: "Неправильный логин и пароль", preferredStyle: .alert)
+
+            let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
+
+            alert.addAction(ok)
+
+            self.present(alert, animated: true, completion: nil)
+        }
+    
     
     @objc func showProfileViewController() {
+        guard let mailText = mailOfPhoneField.text, !mailText.isEmpty
+
+        else {
+            shakeTextField()
+            return
+        }
+        guard let passText = passwordField.text, !passText.isEmpty
+        
+        else {
+            shakeTextField()
+            return
+        }
+        
+        guard passwordWarningLabel.isHidden != false
+                
+        else {
+            shakeTextField()
+            return
+        }
+         
+        guard let username = mailOfPhoneField.text, let password = passwordField.text
+        
+        else {
+            return
+        }
+        if username != standartUsername && password != standartPassword {
+            
+            checkCredentialsLoginPass()
+            
+        }
+        
+        if username != standartUsername {
+            
+            checkCredentialsLogin()
+        }
+        
+        if password != standartPassword {
+            
+            checkCredentialsPassword()
+        }
+        
+        
+        
         let profileViewController = ProfileViewController()
         navigationController?.pushViewController(profileViewController, animated: true)
     }
+        
+    @objc func ChecktextField(_ textField: UITextField) {
+        if let password = textField.text {
+            
+            if password.count < minimumPasswordLength {
+                passwordWarningLabel.isHidden = false
+            } else {
+                passwordWarningLabel.isHidden = true
+            }
+        }
+    }
+    
 }
 
 extension LoginViewController: UITextFieldDelegate {
@@ -192,6 +307,8 @@ extension LoginViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+
+    
 }
     
 extension UITextField {
